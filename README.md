@@ -19,7 +19,7 @@ This project presents a network traffic investigation using Wireshark to identif
 
 ## 📊 Suspicious Host Identification
 
-![Conversations](screenshots/conversations.png)
+![Conversations](conversations.png)
 
 * Identified host **10.2.28.88** communicating with multiple IPs
 * Long-duration connections and high packet count observed
@@ -29,7 +29,7 @@ This project presents a network traffic investigation using Wireshark to identif
 
 ## 📈 Endpoint Analysis
 
-![Endpoints](screenshots/endpoints.png)
+![Endpoints](endpoints.png)
 
 * Host **10.2.28.88** shows highest packet and byte count
 * Most active system in the network
@@ -39,7 +39,7 @@ This project presents a network traffic investigation using Wireshark to identif
 
 ## 🌐 DNS Analysis
 
-![DNS](screenshots/dns.png)
+![DNS](dns.png)
 
 * Repeated DNS queries detected
 * Multiple failed lookups (“No such name”)
@@ -49,7 +49,7 @@ This project presents a network traffic investigation using Wireshark to identif
 
 ## 🌍 HTTP Traffic Analysis
 
-![HTTP](screenshots/http.png)
+![HTTP](http.png)
 
 * Suspicious HTTP POST requests identified
 * Communication with external IPs observed
@@ -59,15 +59,15 @@ This project presents a network traffic investigation using Wireshark to identif
 
 ## 👤 System & User Identification
 
-![NBNS](screenshots/nbns.png)
+![NBNS](nbns.png)
 
 * Hostname identified via NBNS
 
-![Kerberos](screenshots/kerberos.png)
+![Kerberos](kerberos.png)
 
 * User authentication observed via Kerberos
 
-![SAMR](screenshots/samr.png)
+![SAMR](samr.png)
 
 * Full user details extracted
 
@@ -75,7 +75,7 @@ This project presents a network traffic investigation using Wireshark to identif
 
 ## 📂 File Extraction
 
-![Exported Objects](screenshots/export.png)
+![Export](export.png)
 
 * Extracted HTTP objects from traffic
 * Suspicious file **fakeurl.htm** identified
