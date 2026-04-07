@@ -1,5 +1,5 @@
 # Network-Intrusion-Investigation-Wireshark 
-Wireshark-based network traffic analysis case study identifying suspicious activity, DNS anomalies, and potential data exfiltration
+Wireshark-based  network traffic analysis case study which recognizes suspicious activity, DNS anomalies, and potential data exfiltration
 # 🚨 Network Intrusion Investigation using Wireshark
 
 ## 🧠 Incident Response Case Study
