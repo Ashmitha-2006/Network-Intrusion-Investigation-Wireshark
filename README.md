@@ -84,58 +84,56 @@ This project presents a network traffic investigation using Wireshark to identif
 
 ## 🚨 Key Findings
 
-* One internal system showed abnormal communication behavior
-* Repeated DNS failures indicate possible probing activity
-* Suspicious HTTP traffic suggests malicious interaction
-* Evidence of file transfer and external communication
+* One internal system exhibited unusually high communication with multiple hosts, which is not typical behavior
+* Repeated DNS failures were observed, suggesting possible domain probing or automated requests
+* Suspicious HTTP activity, including repeated requests, indicates potential malicious interaction
+* Evidence of file transfers to external systems raises concern for possible data exfiltration
 
 ---
 
 ## 🧠 Threat Assessment
 
-The observed behavior suggests:
+Based on the observed behavior, the system is likely compromised. The traffic patterns suggest:
 
-* Possible system compromise
-* Command & Control (C2) communication
-* Potential data exfiltration
+* Possible Command & Control (C2) communication with external servers
+* Suspicious outbound activity that may indicate data exfiltration
+* Automated or scripted behavior within the network
 
 ---
 
 ## 🛡️ Recommendation
 
-* Isolate the affected system immediately
-* Conduct deeper forensic analysis
-* Monitor outbound network traffic
-* Strengthen endpoint and network security
+* Immediately isolate the affected system to prevent further communication
+* Perform a detailed forensic and malware analysis
+* Monitor outbound traffic for similar patterns across the network
+* Strengthen endpoint security and apply stricter network controls
 
 ---
 
 ## 🛠️ Tools Used
 
-* Wireshark
-* Network Traffic Analysis
-* Network Protocol Analysis (DNS, HTTP, TCP, SMB)
+* Wireshark for packet-level traffic analysis
+* Network traffic inspection and protocol analysis (DNS, HTTP, TCP, SMB)
 
 ---
 
 ## 🚀 Skills Demonstrated
 
-* Network Analysis
-* Threat Detection
+* Network Traffic Analysis and Packet Inspection
+* Threat Detection and Behavioral Analysis
 * Protocol Analysis (DNS, HTTP, Kerberos, SMB)
-* Incident Investigation
+* Incident Investigation and Reporting
 
-## 🔍 Key Findings
-- Identified suspicious host communicating with multiple IPs
-- Detected abnormal DNS query patterns
-- Observed repeated HTTP requests and possible malicious downloads
-- Indications of potential data exfiltration behavior
-
+---
 
 ## 🚀 Why This Matters
-This project demonstrates real-world network investigation skills used in Security Operations Centers (SOC). It highlights the ability to analyze packet-level data, identify suspicious behavior, and draw meaningful conclusions about potential security incidents.
 
-  ## 📌 Conclusion
-The investigation revealed abnormal communication patterns and suspicious activity from a host within the network. These behaviors indicate a potential compromise and possible data exfiltration. Immediate isolation and further forensic analysis are recommended.
+This project reflects real-world investigation practices used in Security Operations Centers (SOC). It demonstrates the ability to analyze network traffic, identify abnormal behavior, and make informed decisions about potential security threats.
+
 ---
+
+## 📌 Conclusion
+
+The analysis identified a system exhibiting abnormal communication patterns and suspicious network activity. These indicators strongly suggest a potential compromise and possible data exfiltration. Immediate containment and further investigation are recommended to mitigate risk.
+
 
