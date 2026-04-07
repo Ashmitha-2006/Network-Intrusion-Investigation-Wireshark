@@ -131,6 +131,9 @@ The observed behavior suggests:
 - Observed repeated HTTP requests and possible malicious downloads
 - Indications of potential data exfiltration behavior
 
+## 🚀 Why This Matters
+This project demonstrates real-world network investigation skills used in Security Operations Centers (SOC). It highlights the ability to analyze packet-level data, identify suspicious behavior, and draw meaningful conclusions about potential security incidents.
+
   ## 📌 Conclusion
 The investigation revealed abnormal communication patterns and suspicious activity from a host within the network. These behaviors indicate a potential compromise and possible data exfiltration. Immediate isolation and further forensic analysis are recommended.
 ---
