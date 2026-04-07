@@ -114,6 +114,7 @@ The observed behavior suggests:
 
 * Wireshark
 * Network Traffic Analysis
+* Network Protocol Analysis (DNS, HTTP, TCP, SMB)
 
 ---
 
@@ -124,5 +125,13 @@ The observed behavior suggests:
 * Protocol Analysis (DNS, HTTP, Kerberos, SMB)
 * Incident Investigation
 
+## 🔍 Key Findings
+- Identified suspicious host communicating with multiple IPs
+- Detected abnormal DNS query patterns
+- Observed repeated HTTP requests and possible malicious downloads
+- Indications of potential data exfiltration behavior
+
+  ## 📌 Conclusion
+The investigation revealed abnormal communication patterns and suspicious activity from a host within the network. These behaviors indicate a potential compromise and possible data exfiltration. Immediate isolation and further forensic analysis are recommended.
 ---
 
