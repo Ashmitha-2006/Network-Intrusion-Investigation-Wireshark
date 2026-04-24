@@ -1,124 +1,254 @@
-# 🔍 Network Intrusion Investigation using Wireshark
 
-> A hands-on incident response case study analyzing real network traffic to uncover suspicious behavior, DNS anomalies, C2 communication patterns, and potential data exfiltration.
+# 🔴 SOC INCIDENT INVESTIGATION REPORT
 
----
-
-## 📌 Overview
-
-This project simulates a real-world Security Operations Center (SOC) investigation. Using Wireshark, network traffic was analyzed at the packet level to identify a potentially compromised host, trace its communication behavior, and assess the threat it poses to the network.
+## Network Intrusion Analysis using Wireshark
 
 ---
 
-## 🎯 Objectives
+### 📁 Case Details
 
-- Identify suspicious hosts based on traffic behavior
-- Analyze communication patterns across protocols (DNS, HTTP, SMB, Kerberos)
-- Detect indicators of compromise (IOCs)
-- Investigate potential data exfiltration and C2 activity
+* **Investigation Type:** Network Traffic Analysis
+* **Tool Used:** Wireshark
+* **Environment:** Simulated SOC Investigation
+* **Analyst:** Dishini Ashmitha
+* **Severity:** 🔴 HIGH
 
 ---
 
-## 🔬 Investigation Breakdown
+## 📋 Executive Summary
 
-### 📊 Suspicious Host Identification
+During network traffic analysis, a single internal host (**10.2.28.88**) was identified exhibiting abnormal communication patterns, including excessive outbound connections, DNS anomalies, and suspicious HTTP activity.
+
+The investigation confirmed multiple **indicators of compromise (IOCs)** such as:
+
+* High-volume external communication
+* Repeated failed DNS lookups
+* Suspicious HTTP POST requests
+* Potential malicious file transfer
+
+These behaviors strongly suggest **possible host compromise**, with characteristics aligned to **malware beaconing and data exfiltration activity**.
+
+---
+
+## 🖥️ Victim Host Identification
+
+### 🔍 How the Host Was Identified
+
+Using:
+
+* **Statistics → Conversations**
+* **Statistics → Endpoints**
+
+The host **10.2.28.88** stood out due to:
+
+* Highest packet count
+* Communication with multiple external IPs
+* Long-duration sessions
+
+---
+
+### 📊 Evidence
+
+#### Suspicious Traffic Patterns
+
 ![Conversations](conversations.png)
 
-Host **10.2.28.88** was flagged for communicating with multiple IPs simultaneously, exhibiting long-duration connections and an unusually high packet count — clear indicators of abnormal network behavior.
+#### Endpoint Activity Confirmation
 
----
-
-### 📈 Endpoint Analysis
 ![Endpoints](endpoints.png)
 
-Endpoint statistics confirmed **10.2.28.88** as the most active system on the network by both packet and byte count, warranting deeper investigation.
+---
+
+## 👤 System & User Identification
+
+### 🔍 Extraction Methodology
+
+Victim system details were extracted through protocol-level analysis:
+
+| Protocol | Purpose                  |
+| -------- | ------------------------ |
+| NBNS     | Hostname identification  |
+| Kerberos | Authentication tracking  |
+| SAMR     | User account enumeration |
 
 ---
 
-### 🌐 DNS Analysis
+### 📌 Evidence
+
+![NBNS](nbns.png)
+➡️ Hostname identified from NetBIOS broadcasts
+
+![Kerberos](kerberos.png)
+➡️ Authentication activity linked to user sessions
+
+![SAMR](samr.png)
+➡️ Full user account details extracted
+
+---
+
+## 🚨 Red Flag #1 – Abnormal Network Behavior
+
+* One internal host communicating with **multiple external endpoints**
+* High packet and byte count
+* Persistent long-duration connections
+
+📊 Evidence:
+![Conversations](conversations.png)
+
+➡️ Indicates:
+
+* Possible **compromised host**
+* Potential **command & control (C2) communication**
+
+---
+
+## 🌐 Red Flag #2 – Suspicious DNS Activity
+
+### 🔍 Observations
+
+* Repeated DNS queries
+* Multiple **failed lookups ("No such name")**
+* Pattern consistent with automated scripts
+
+📊 Evidence:
 ![DNS](dns.png)
 
-Repeated DNS queries with multiple failed lookups ("No such name") were detected, suggesting automated domain probing — a common behavior associated with malware beaconing or C2 communication attempts.
+➡️ Interpretation:
+
+* Possible **domain probing**
+* Behavior consistent with **malware beaconing**
 
 ---
 
-### 🌍 HTTP Traffic Analysis
+## 🌍 Red Flag #3 – Suspicious HTTP Activity
+
+### 🔍 Observations
+
+* HTTP POST requests to external servers
+* Unusual outbound communication patterns
+
+📊 Evidence:
 ![HTTP](http.png)
 
-Suspicious HTTP POST requests were observed communicating with external IPs, raising concerns about malicious downloads or active data exfiltration.
+➡️ Interpretation:
+
+* Possible **data exfiltration**
+* Potential communication with malicious infrastructure
 
 ---
 
-### 👤 System & User Identification
+## 📂 Red Flag #4 – Suspicious File Transfer
 
-| Protocol | Finding |
-|----------|---------|
-| NBNS | ![NBNS](nbns.png) Hostname of the affected system identified |
-| Kerberos | ![Kerberos](kerberos.png) User authentication activity traced |
-| SAMR | ![SAMR](samr.png) Full user account details extracted |
+### 🔍 Findings
 
----
+* Extracted HTTP objects from captured traffic
+* Identified suspicious file: **`fakeurl.htm`**
 
-### 📂 File Extraction
+📊 Evidence:
 ![Export](export.png)
 
-HTTP objects were exported from the captured traffic. A suspicious file — **fakeurl.htm** — was identified, suggesting the host may have downloaded or served malicious content.
+➡️ Interpretation:
+
+* Possible **malware delivery or staging file**
+* Indicates compromise lifecycle progression
 
 ---
 
-## 🚨 Key Findings
+## 📊 Indicators of Compromise (IOCs)
 
-- **Abnormal outbound communication** — One internal host communicated with an unusually high number of external IPs
-- **DNS probing behavior** — Repeated failed DNS lookups consistent with automated malware activity
-- **Suspicious HTTP POST requests** — Indicative of data being sent to an external server
-- **Suspicious file transfer** — Evidence of potentially malicious file activity via HTTP
+| Type     | Indicator                |
+| -------- | ------------------------ |
+| Host     | 10.2.28.88               |
+| Behavior | High outbound traffic    |
+| DNS      | Repeated failed queries  |
+| HTTP     | Suspicious POST requests |
+| File     | fakeurl.htm              |
 
 ---
 
 ## 🧠 Threat Assessment
 
-Based on observed traffic patterns, the host **10.2.28.88** is likely compromised. The evidence suggests:
+Based on the investigation:
 
-- **Command & Control (C2) communication** with external servers
-- **Possible data exfiltration** via HTTP POST requests
-- **Automated or scripted behavior** consistent with malware activity
+The host **10.2.28.88** is **highly likely compromised**.
 
----
+### Likely Activities:
 
-## 🛡️ Recommendations
-
-- **Isolate** the affected host immediately to prevent further network communication
-- **Conduct forensic analysis** on the system to identify the malware or threat actor
-- **Monitor outbound traffic** network-wide for similar behavioral patterns
-- **Strengthen endpoint defenses** and enforce stricter egress filtering rules
+* 🔗 Command & Control (C2) communication
+* 📤 Data exfiltration via HTTP
+* 🤖 Automated malware behavior
 
 ---
 
-## 🛠️ Tools & Technologies
+## 🛡️ Recommended Actions
 
-| Tool | Purpose |
-|------|---------|
-| Wireshark | Packet capture and traffic analysis |
-| DNS Protocol Analysis | Detecting domain probing behavior |
-| HTTP Protocol Analysis | Identifying suspicious requests and file transfers |
-| Kerberos / NBNS / SAMR | User and host identification |
+* Immediately **isolate the affected host**
+* Conduct **endpoint forensic analysis**
+* Monitor network for **similar traffic patterns**
+* Implement **egress filtering and alerting rules**
+* Strengthen **endpoint protection mechanisms**
+
+---
+
+## 🔧 Investigation Methodology
+
+1. **Traffic Profiling**
+
+   * Protocol hierarchy and traffic distribution
+
+2. **Host Identification**
+
+   * Endpoint & conversation analysis
+
+3. **DNS Inspection**
+
+   * Identification of anomalous queries
+
+4. **HTTP Analysis**
+
+   * Detection of suspicious outbound traffic
+
+5. **File Extraction**
+
+   * Analysis of transferred objects
+
+6. **User Attribution**
+
+   * Protocol-based identity extraction
 
 ---
 
 ## 💡 Skills Demonstrated
 
-- Network Traffic Analysis & Packet Inspection
-- Threat Detection & Behavioral Analysis
-- Multi-Protocol Investigation (DNS, HTTP, TCP, SMB, Kerberos)
-- Incident Response Documentation & Reporting
-- IOC Identification & Threat Assessment
+* Network Traffic Analysis
+* Threat Hunting & Detection
+* Multi-Protocol Analysis (DNS, HTTP, Kerberos, SMB)
+* Incident Investigation & Reporting
+* IOC Identification
 
 ---
 
 ## 🌐 Real-World Relevance
 
-The techniques applied in this investigation reflect standard practices used in Security Operations Centers (SOC) globally. The ability to analyze raw network traffic, correlate protocol-level behavior, and identify indicators of compromise is a foundational skill in threat detection and incident response roles.
+This investigation reflects real **SOC analyst workflows**, including:
+
+* Identifying compromised hosts through behavioral analysis
+* Correlating multi-protocol activity
+* Detecting early-stage malware communication
+* Investigating potential data exfiltration
 
 ---
 
-*Conducted as part of a self-directed cybersecurity learning path focused on network forensics and incident response.*
+## 🧾 Conclusion
+
+This analysis successfully identified a compromised internal system through multiple indicators, including abnormal traffic behavior, DNS anomalies, suspicious HTTP communication, and file transfer activity.
+
+The investigation demonstrates strong **practical SOC skills**, including traffic analysis, threat detection, and structured incident reporting.
+
+---
+
+## 🔗 Author
+
+**Dishini Ashmitha**
+
+
